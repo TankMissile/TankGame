@@ -2,11 +2,11 @@
 
 #pragma once
 
-#include "BallisticsAimingComponent.h"
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
 
 class UTankBarrel;
+class UBallisticsAimingComponent;
 
 UCLASS()
 class TANKGAME_API ATank : public APawn
@@ -21,6 +21,12 @@ protected:
 
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
+
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	void SetTurretReference(UTankTurret* TurretToSet);
+
+	UFUNCTION(BlueprintCallable, Category = Input)
+	void Fire();
 
 private:
 	// Sets default values for this pawn's properties

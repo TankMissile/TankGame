@@ -2,9 +2,11 @@
 
 #pragma once
 
-#include "TankBarrel.h"
 #include "Components/ActorComponent.h"
 #include "BallisticsAimingComponent.generated.h"
+
+class UTankBarrel;
+class UTankTurret;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class TANKGAME_API UBallisticsAimingComponent : public UActorComponent
@@ -24,9 +26,11 @@ public:
 	void AimAt(FVector, float);
 
 	void SetBarrelReference(UTankBarrel*);
+	void SetTurretReference(UTankTurret*);
 
 private:
 	UTankBarrel *Barrel = nullptr;
+	UTankTurret *Turret = nullptr;
 	
 	void MoveBarrel(FVector);
 };

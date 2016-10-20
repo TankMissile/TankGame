@@ -2,7 +2,7 @@
 
 #include "TankGame.h"
 #include "Tank.h"
-
+#include "BallisticsAimingComponent.h"
 
 // Sets default values
 ATank::ATank()
@@ -39,4 +39,13 @@ void ATank::AimAt(FVector TargetLocation) {
 
 void ATank::SetBarrelReference(UTankBarrel* BarrelToSet) {
 	AimingComponent->SetBarrelReference(BarrelToSet);
+}
+
+void ATank::SetTurretReference(UTankTurret* TurretToSet) {
+	AimingComponent->SetTurretReference(TurretToSet);
+}
+
+void ATank::Fire()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Fire!"));
 }
