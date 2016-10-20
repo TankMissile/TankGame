@@ -15,8 +15,24 @@ class TANKGAME_API ATankPlayerController : public APlayerController
 	GENERATED_BODY()
 	
 	
-public:
+private:
+	//crosshair percentage across screen
+	UPROPERTY(EditAnywhere)
+	float CHPosX = 0.5;
+	UPROPERTY(EditAnywhere)
+	float CHPosY = 0.5;
+
+	UPROPERTY(EditAnywhere)
+	float LineTraceRange = 1000000.0f;
+
 	ATank* GetControlledTank() const;
-	
+
+	//Move towards the crosshair such that a projectile will hit whatever is being aimed at
+	void AimTowardCrosshair();
+	bool GetCrosshairHitLocation(FVector&) const;
+	bool GetLookDirection(FVector2D, FVector&) const;
+	bool GetLookVectorHitLocation(FVector&, FVector) const;
+
 	void BeginPlay() override;
+	void Tick(float DeltaTime) override;
 };
