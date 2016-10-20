@@ -32,7 +32,7 @@ void UBallisticsAimingComponent::TickComponent( float DeltaTime, ELevelTick Tick
 	// ...
 }
 
-void UBallisticsAimingComponent::SetBarrelReference(UStaticMeshComponent* b) {
+void UBallisticsAimingComponent::SetBarrelReference(UTankBarrel* b) {
 	Barrel = b;
 }
 
@@ -45,11 +45,12 @@ void UBallisticsAimingComponent::AimAt(FVector TargetLocation, float ProjectileS
 	UE_LOG(LogTemp, Warning, TEXT("%s :"), *GetOwner()->GetName())
 	
 	//Calculate LaunchVelocity
-	if (UGameplayStatics::SuggestProjectileVelocity(this, LaunchVelocity, BarrelLocation, TargetLocation, ProjectileSpeed, ESuggestProjVelocityTraceOption::TraceFullPath, true)) {
+	if (UGameplayStatics::SuggestProjectileVelocity(this, LaunchVelocity, BarrelLocation, TargetLocation, ProjectileSpeed, ESuggestProjVelocityTraceOption::DoNotTrace)) {
+
+		UE_LOG(LogTemp, Warning, TEXT("\tLaunchVelocity %s"), *LaunchVelocity.ToString())
 		FVector AimDirection = LaunchVelocity.GetSafeNormal();
 		MoveBarrel(AimDirection);
 	}
-
 
 }
 
@@ -58,7 +59,8 @@ void UBallisticsAimingComponent::MoveBarrel(FVector AimDirection) {
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
-	UE_LOG(LogTemp, Warning, TEXT("Barrel aim: %s "), *AimAsRotator.ToString());
+	UE_LOG(LogTemp, Warning, TEXT("\tBarrel aim: %s "), *AimAsRotator.ToString());
 
 	// start moving toward it
+	Barrel->Elevate(5); //TODO fix magic number
 }

@@ -2,9 +2,9 @@
 
 #pragma once
 
+#include "TankBarrel.h"
 #include "Components/ActorComponent.h"
 #include "BallisticsAimingComponent.generated.h"
-
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class TANKGAME_API UBallisticsAimingComponent : public UActorComponent
@@ -23,10 +23,10 @@ public:
 
 	void AimAt(FVector, float);
 
-	void SetBarrelReference(UStaticMeshComponent*);
+	void SetBarrelReference(UTankBarrel*);
 
 private:
-	UStaticMeshComponent* Barrel = nullptr;
+	UTankBarrel *Barrel = nullptr;
 	
 	void MoveBarrel(FVector);
 };
