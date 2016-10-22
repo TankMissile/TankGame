@@ -3,11 +3,6 @@
 #include "TankGame.h"
 #include "TankAIController.h"
 
-
-ATank* ATankAIController::GetControlledTank() const {
-	return Cast<ATank>(GetPawn());
-}
-
 void ATankAIController::BeginPlay() {
 	Super::BeginPlay();
 }
@@ -15,22 +10,17 @@ void ATankAIController::BeginPlay() {
 void ATankAIController::Tick(float DeltaTime) {
 	Super::Tick(DeltaTime);
 
-	if (GetPlayerTank()) {
+
+	auto ControlledTank = Cast<ATank>(GetPawn());
+	auto PTank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
+
+	if (PTank) {
 		//Move Towards Player
 
 		//Aim at player
-		GetControlledTank()->AimAt(GetPlayerTank()->GetActorLocation());
+		ControlledTank->AimAt(PTank->GetActorLocation());
 
 		//Fire if ready
-	}
-}
-
-ATank* ATankAIController::GetPlayerTank() const {
-	auto PTank = GetWorld()->GetFirstPlayerController()->GetPawn();
-	if (!PTank) {
-		return nullptr;
-	}
-	else {
-		return Cast<ATank>(PTank);
+		ControlledTank->Fire();
 	}
 }

@@ -7,6 +7,7 @@
 
 class UTankBarrel;
 class UBallisticsAimingComponent;
+class AProjectile;
 
 UCLASS()
 class TANKGAME_API ATank : public APawn
@@ -16,6 +17,9 @@ class TANKGAME_API ATank : public APawn
 public:
 	void AimAt(FVector);
 
+	UFUNCTION(BlueprintCallable, Category = Input)
+	void Fire();
+
 protected:
 	UBallisticsAimingComponent* AimingComponent = nullptr;
 
@@ -24,9 +28,6 @@ protected:
 
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	void SetTurretReference(UTankTurret* TurretToSet);
-
-	UFUNCTION(BlueprintCallable, Category = Input)
-	void Fire();
 
 private:
 	// Sets default values for this pawn's properties
@@ -39,8 +40,18 @@ private:
 	virtual void Tick( float DeltaSeconds ) override;
 
 	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
+	virtual void SetupPlayerInputComponent(class UInputComponent*) override;
 	
 	UPROPERTY(EditAnywhere, Category = Firing)
 	float ProjectileSpeed = 100000.0f;
+
+	UPROPERTY(EditAnywhere, Category = Firing)
+	TSubclassOf<AProjectile> ProjectileBP;
+
+	UTankBarrel* Barrel;
+
+	//Time in seconds between shots
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	float ReloadTime = 2;
+	float TimeLastFired;
 };
