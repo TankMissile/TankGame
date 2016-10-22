@@ -8,6 +8,10 @@
 class UTankBarrel;
 class UTankTurret;
 
+/**
+ * Ballistics Aiming Component calculates the angle at which a projectile must be fired
+ * in order to land at the point raytraced through the center of the screen
+ */
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class TANKGAME_API UBallisticsAimingComponent : public UActorComponent
 {
