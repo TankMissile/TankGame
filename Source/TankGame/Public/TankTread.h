@@ -19,4 +19,10 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, Category = Input)
 	float MaxThrottle = 20.0f;
+	UPROPERTY(EditDefaultsOnly, Category = Input)
+	float MaxReverse = -10.0f;
+
+	//Per track, in newtons
+	UPROPERTY(EditDefaultsOnly, Category = Input)
+	float MaxDrivingForce = 400000.0f; //Assume 40 ton tank and 1g of acceleration
 };

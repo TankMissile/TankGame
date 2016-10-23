@@ -7,7 +7,12 @@
 
 void UTankTread::SetThrottle(float throt) {
 	throt = throt * MaxThrottle;
-	throt = FMath::Clamp<float>(throt, 0, MaxThrottle);
+	//throt = FMath::Clamp<float>(throt, MaxReverse, MaxThrottle);
 
 	UE_LOG(LogTemp, Warning, TEXT("%s: Throttle at %f"), *GetName(), throt);
+
+	auto ForceApplied = GetForwardVector() * throt * MaxDrivingForce;
+	auto ForceLocation = GetComponentLocation();
+	auto TankRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
+	TankRoot->AddForceAtLocation(ForceApplied, ForceLocation);
 }

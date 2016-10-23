@@ -7,6 +7,7 @@
 
 class UTankBarrel;
 class UBallisticsAimingComponent;
+class UTankMovementComponent;
 class AProjectile;
 
 UCLASS()
@@ -22,6 +23,9 @@ public:
 
 protected:
 	UBallisticsAimingComponent* AimingComponent = nullptr;
+
+	UPROPERTY(BlueprintReadOnly)
+	UTankMovementComponent* MovementComponent = nullptr;
 
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
