@@ -28,6 +28,7 @@ public:
 	void Init(UTankTread* Left, UTankTread* Right);
 
 
+	void RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) override;
 	
 private:
 	UTankTread* TreadLeft;

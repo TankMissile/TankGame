@@ -29,3 +29,16 @@ void UTankMovementComponent::IntendTurn(float Throw) {
 		TreadRight->SetThrottle(-Throw);
 	}
 }
+
+
+//No need for override since we're replacing the entire functionality
+void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) {
+	auto IntendDirection = MoveVelocity.GetSafeNormal();
+	auto TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
+	auto ForwardThrow = FVector::DotProduct(TankForward, IntendDirection);
+	
+	auto RightThrow = FVector::CrossProduct(TankForward, IntendDirection).Z;
+
+	IntendMoveForward(ForwardThrow);
+	IntendTurn(RightThrow);
+}

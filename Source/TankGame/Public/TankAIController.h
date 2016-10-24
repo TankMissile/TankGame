@@ -17,4 +17,9 @@ class TANKGAME_API ATankAIController : public AAIController
 public:
 	void BeginPlay() override;
 	void Tick(float DeltaTime) override;
+
+private:
+	//How close the AI will get to the player
+	UPROPERTY(EditDefaultsOnly, Category = Pathfinding)
+	float TargetDistance = 3000.0f;
 };
